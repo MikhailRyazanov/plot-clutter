@@ -6,6 +6,8 @@ Demo of output cluttering by Matplotlib plot directive
 `Matplotlib plot directive
 <https://matplotlib.org/stable/api/sphinxext_plot_directive_api.html>`__ in
 some cases copies unnecessary files to the output directory.
+Minimal working example for `issue #24005
+<https://github.com/matplotlib/matplotlib/issues/24005>`__.
 
 Steps to reproduce:
 
