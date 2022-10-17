@@ -34,7 +34,7 @@ Steps to reproduce:
 3. Needed files are not copied when reusing another build:
 
    a. Comment out `plot_html_show_formats = False` (and
-      `plot_html_show_source_link = False`) in `Makefile` to enable automatic
+      `plot_html_show_source_link = False`) in `conf.py` to enable automatic
       links to image formats (and plotting scripts).
    b. Run `make clean` to clean the previous build results.
    c. Run `make html` to produce a regular “HTML” build in `build/html`.
@@ -45,3 +45,17 @@ Steps to reproduce:
    e. Inspect the output directory `build/singleghtml` — it doesn't have any
       image (and script) files, resulting in broken links to “(Source code,
       svg, pdf)” for all the plots in the HTML file.
+
+4. Links with wrong subdirectory paths in `singleghtml` build:
+
+   a. Use the modified `conf.py` from the previous build.
+   b. Run `make clean` to clean the previous build results.
+   c. Run `make singleghtml` to produce a “single HTML” build, which should
+      include links to scripts and image formats.
+   d. Inspect the output directory and confirm that `build/singleghtml/subdir`
+      contains `{other-1,script}.{py,pdf,svg}` files.
+   e. Open the generated HTML file `build/singleghtml/index.html` and try using
+      the “(Source code, svg, pdf)” links in the “Other” section. None of them
+      works because they all refer to `../subdir/<file>` (resolving to
+      `build/subdir/<file>`) instead of `subdir/<file>` (correct path relative
+      to `index.html`, resolving to `build/singleghtml/subdir/<file>`).
